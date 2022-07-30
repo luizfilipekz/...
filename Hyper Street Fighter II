@@ -50,25 +50,6 @@ chars = {
 "Akuma": 0x10,
 }
 
-chars_turbo = {
-"Ryu Turbo": 0x00,
-"E. Honda Turbo": 0x01,
-"Blanka Turbo": 0x02,
-"Guile Turbo": 0x03,
-"Ken Turbo": 0x04,
-"Chun Li Turbo": 0x05,
-"Zangief Turbo": 0x06,
-"Dhalsim Turbo": 0x07,
-"M. Bison Turbo": 0x08,
-"Sagat Turbo": 0x09,
-"Vega Turbo": 0x0b,
-"Cammy Turbo": 0x0c,
-"Balrog Turbo": 0x0a,
-"T. Hawk Turbo": 0x0d,
-"Fei Long Turbo": 0x0e,
-"Dee Jay Turbo": 0x0f,
-"Akuma Turbo": 0x10,
-}
 
 super_chars = {
 "Shinku Hadouken": 0x00,
@@ -95,11 +76,12 @@ super_chars = {
 
 function achiev_beat_the_game(name, cheevo_id) {
     achievement(name, format("Beat the game using only {0} (Normal-3 difficulty | 3 rounds | SuperT, Champ or Normal ).", name), 10,
-    trigger = once(p1_char() == chars[name] && arcade_match() == 0x00) && 
-    never(p1_char() != chars[name] && p1_wins() > 0x00) &&
-    p1_char() == chars[name] && 
-    difficulty() == 0x03 && round_max() == 0x00 && p1_type() == 0x00 || p1_type() == 0x06 || p1_type() == 0x04 &&
-        p1_active() == 0x01 && p2_active() == 0x00 && trigger_when(beat_arcade())
+    trigger =   once(p1_char() == chars[name] && arcade_match() == 0x00) && 
+                never(p1_char() != chars[name] && p1_wins() > 0x00) &&
+                p1_char() == chars[name] && 
+                difficulty() == 0x03 && round_max() == 0x00 && (p1_type() == 0x00
+                || p1_type() == 0x06 || p1_type() == 0x04) &&
+                p1_active() == 0x01 && p2_active() == 0x00 && trigger_when(beat_arcade())
     )
 }
 
@@ -122,52 +104,54 @@ achiev_beat_the_game("Dee Jay", 0)
 achiev_beat_the_game("Akuma", 0)
 
 
-function achiev_beat_the_game(name, cheevo_id) {
-    achievement(name, format("Beat the game using only {0} (Normal-3 difficulty | 3 rounds | Super or Turbo ).", name), 10,
-    trigger = once(p1_char() == chars_turbo[name] && arcade_match() == 0x00) && 
-    never(p1_char() != chars_turbo[name] && p1_wins() > 0x00) &&
-    p1_char() == chars_turbo[name] && 
-    difficulty() == 0x03 && round_max() == 0x00 && p1_type() == 0x02 || p1_type() == 0x08 &&
-        p1_active() == 0x01 && p2_active() ==0x00 && trigger_when(beat_arcade())
+function achiev_beat_the_game_2(name, cheevo_id) {
+    achievement(name + " Turbo", format("Beat the game using only {0} (Normal-3 difficulty | 3 rounds | Super or Turbo ).", name), 10,
+    trigger =   once(p1_char() == chars[name] && arcade_match() == 0x00) && 
+                never(p1_char() != chars[name] && p1_wins() > 0x00) &&
+                p1_char() == chars[name] && 
+                difficulty() == 0x03 && round_max() == 0x00 && (p1_type() == 0x02 
+                || p1_type() == 0x08) &&
+                p1_active() == 0x01 && p2_active() == 0x00 && trigger_when(beat_arcade())
     )
 }
 
-achiev_beat_the_game("Ryu Turbo", 0)
-achiev_beat_the_game("E. Honda Turbo", 0)
-achiev_beat_the_game("Blanka Turbo", 0)
-achiev_beat_the_game("Guile Turbo", 0)
-achiev_beat_the_game("Ken Turbo", 0)
-achiev_beat_the_game("Chun Li Turbo", 0)
-achiev_beat_the_game("Zangief Turbo", 0)
-achiev_beat_the_game("Dhalsim Turbo", 0)
-achiev_beat_the_game("M. Bison Turbo", 0)
-achiev_beat_the_game("Sagat Turbo", 0)
-achiev_beat_the_game("Vega Turbo", 0)
-achiev_beat_the_game("Cammy Turbo", 0)
-achiev_beat_the_game("Balrog Turbo", 0)
-achiev_beat_the_game("T. Hawk Turbo", 0)
-achiev_beat_the_game("Fei Long Turbo", 0)
-achiev_beat_the_game("Dee Jay Turbo", 0)
-achiev_beat_the_game("Akuma Turbo", 0)
+achiev_beat_the_game_2("Ryu", 0)
+achiev_beat_the_game_2("E. Honda", 0)
+achiev_beat_the_game_2("Blanka", 0)
+achiev_beat_the_game_2("Guile", 0)
+achiev_beat_the_game_2("Ken", 0)
+achiev_beat_the_game_2("Chun Li", 0)
+achiev_beat_the_game_2("Zangief", 0)
+achiev_beat_the_game_2("Dhalsim", 0)
+achiev_beat_the_game_2("M. Bison", 0)
+achiev_beat_the_game_2("Sagat", 0)
+achiev_beat_the_game_2("Vega", 0)
+achiev_beat_the_game_2("Cammy", 0)
+achiev_beat_the_game_2("Balrog", 0)
+achiev_beat_the_game_2("T. Hawk", 0)
+achiev_beat_the_game_2("Fei Long", 0)
+achiev_beat_the_game_2("Dee Jay", 0)
+achiev_beat_the_game_2("Akuma", 0)
 
  achievement("The Hardest Man", "Beat the game on the highest difficulty (3 rounds).", 50,
-    trigger = difficulty() == 0x07 && round_max() == 0x00 &&
-    p1_active() == 0x01 && p2_active() == 0x00
-     && trigger_when(beat_arcade()))
+    trigger =   difficulty() == 0x07 && round_max() == 0x00 &&
+                p1_active() == 0x01 && p2_active() == 0x00
+                && trigger_when(beat_arcade()))
     
      achievement("The Man Have a Only Life", "Beat the game on the highest difficulty (Normal-3 difficulty | 3 rounds).", 50,
-    trigger = never(continues() < prev(continues()))
-    && round_max() == 0x00 &&
-    p1_active() == 0x01 && p2_active() == 0x00
-     && trigger_when(beat_arcade()))
+    trigger =   never(continues() < prev(continues()))
+                && round_max() == 0x00 &&
+                p1_active() == 0x01 && p2_active() == 0x00
+                && trigger_when(beat_arcade()))
 
 // =====================================================
 //             Finalization with Supers        
 // =====================================================
 
-function achiev_finishing_move(title, name, cheevo_id) {
+function achiev_finishing_move(name, title, cheevo_id) {
     achievement(name, format("Win a Round using a Super Combo as {0} (Normal-3 difficulty | 3 rounds).", name), 3,
-    trigger = p1_char() == chars[name] &&
+    trigger = p1_char() == super_chars[name] &&
+    p1_active() == 0x01 && p2_active() == 0x00 &&
     p1_wins() > prev(p1_wins()) && finalization() == 0x01
     )
 }
